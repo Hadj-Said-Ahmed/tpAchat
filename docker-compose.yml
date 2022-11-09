@@ -1,16 +1,6 @@
 version: "3.7"
 
 services:
-  jenkins:
-    image: jenkins/jenkins
-    container_name: tender_lamport
-    ports:
-      -8080:8080
-    volumes:
-      - /home/jenkins/jenkins_home:/var/jenkins_home
-      - ../../var/run/docker.sock:/var/run/docker.sock
-    restart: on-failure
-    
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
