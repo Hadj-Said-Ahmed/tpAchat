@@ -52,11 +52,11 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-		<!-- <dependency>
+	 <dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
-		</dependency> -->
+		</dependency> 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -112,7 +112,7 @@
 			<id>dev</id>
 			<properties>
 			<env>src/main/resources/dev</env>
-			<maven.test.skip>true</maven.test.skip>
+			<!--  <maven.test.skip>true</maven.test.skip> -->
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
