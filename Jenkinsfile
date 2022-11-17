@@ -6,6 +6,7 @@ pipeline {
             steps{
                 echo 'Pull project from git';
                 git branch: 'main',
+                 credentialsId: 'dde8e7e2-7b16-4706-a43c-d1d3fe6b6911', 
                 url : 'https://github.com/Hadj-Said-Ahmed/tpAchat.git';
             }
         }
@@ -16,44 +17,31 @@ pipeline {
                 sh  'mvn clean test -Ptest'
             }
         }
-
-        stage('Sonar test')
-        {
-            steps{
-            sh  'mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=ahmed'
-            }
-        }
-
-        stage('MVN CLEAN'){
+        
+         stage("Sonar") {
             steps {
-                sh 'mvn clean'
-            }
-         }
-        stage('MVN COMPILE')
-        {
-            steps {
-                sh 'mvn compile'
-            }
-        }
-        stage('Build package')
-        {
-            steps {
-                sh 'mvn clean package -Pprod'
-            }
-        }
-        stage('Build docker_image')
-        {
-            steps{
-                sh 'docker build -t tpachat .'
+                sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=ahmed'
             }
         }
 
-        stage('deploy nexus')
-        {
-            steps{
-                sh 'mvn  deploy'
+        stage("Build") {
+            steps {
+                sh "mvn clean package -DskipTests"
             }
-        }                                              
+        }
+
+         stage("Build image") {
+            steps {
+                sh "sudo docker build -t name:tpachat ."
+            }
+        }
+        
+         stage("Deploy artifact in nexus") {
+            steps {
+                sh "mvn clean deploy -Pprod"
+            }
+        }
+        
        
  }
 }
