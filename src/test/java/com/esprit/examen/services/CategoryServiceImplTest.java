@@ -1,4 +1,4 @@
-package com.esprit.examen.services;
+/*package com.esprit.examen.services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -74,3 +74,4 @@ public class CategoryServiceImplTest {
 	}
 	
 }
+*/
