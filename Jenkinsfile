@@ -1,5 +1,8 @@
 pipeline {
     agent {label 'maven'}
+    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub_access')
+	}
     stages{
         stage('GIT')
         {
@@ -10,6 +13,20 @@ pipeline {
                 url : 'https://github.com/Hadj-Said-Ahmed/tpAchat.git';
             }
         }
+
+        stage('Dockerhub login') {
+	        steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $dockerhub_access --password-stdin'
+            }
+         
+		}
+
+		stage('Deploy dokcer image') {
+
+			steps {
+				sh 'docker push ahmedhs1/tpachat'
+			}
+		}
 
         stage('Unit test')
         {
@@ -32,11 +49,11 @@ pipeline {
 
          stage("Build image") {
             steps {
-                sh "sudo docker build -t name:tpachat ."
+                sh "sudo docker build -t ahmedhs1/tpachat ."
             }
         }
         
-         stage("Deploy artifact in nexus") {
+         stage("Deploy artifact to nexus") {
             steps {
                 sh "mvn clean deploy -Pprod"
             }
