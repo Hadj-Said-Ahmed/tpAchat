@@ -84,7 +84,7 @@
 
 	</dependencies>
 
-	<build>
+		<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -114,16 +114,15 @@
 			<env>src/main/resources/dev</env>
 			<!--  <maven.test.skip>true</maven.test.skip> -->
 			</properties>
-			<!-- <activation>
+			<activation>
 				<activeByDefault>true</activeByDefault>
-			</activation>-->
+			</activation>
 		</profile>
 		<profile>
 			<id>test</id>
 			<properties>
 			<env>src/main/resources/test</env>
 			</properties>
-			
 		</profile>
 		<profile>
 			<id>prod</id>
@@ -131,9 +130,6 @@
 			<env>src/main/resources/prod</env>
 			<maven.test.skip>true</maven.test.skip>
 			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 		</profile>
 	</profiles>
 
