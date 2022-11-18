@@ -1,9 +1,8 @@
 pipeline {
     agent {label 'maven'}
-    environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub_access')
-	}
+
     stages{
+
         stage('GIT')
         {
             steps{
@@ -13,20 +12,6 @@ pipeline {
                 url : 'https://github.com/Hadj-Said-Ahmed/tpAchat.git';
             }
         }
-
-        stage('Dockerhub login') {
-	        steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-         
-		}
-
-		stage('Deploy dokcer image') {
-
-			steps {
-				sh 'docker push ahmedhs1/tpachat'
-			}
-		}
 
         stage('Unit test')
         {
@@ -49,7 +34,7 @@ pipeline {
 
          stage("Build image") {
             steps {
-                sh "sudo docker build -t ahmedhs1/tpachat ."
+                sh "sudo docker build -t name:tpachat ."
             }
         }
         
